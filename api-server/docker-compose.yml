@@ -1,0 +1,23 @@
+services:
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-server
+    hostname: api-server
+    ports:
+      - "8000:8000"
+    environment:
+      HADOOP_NAMENODE_URL: "http://namenode:9870"
+      SPARK_MASTER_URL: "spark://spark-master:7077"
+      HDFS_BASE_URL: "hdfs://namenode:9000"
+      API_KEY: "bc1767289297c2aa3349cf2f00b4c295f20b4eabf92f6dde5d234e0a2901ac52" 
+    volumes:
+      - ./app:/app/app
+      - ./shared-data:/app/shared-data 
+    networks:
+      - hadoop-network
+      
+networks:
+  hadoop-network:
+    external: true

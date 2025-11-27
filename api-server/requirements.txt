@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+pyspark==3.5.1
+hdfs
+lightgbm
+pandas
+numpy
+scikit-learn
+python-multipart
+matplotlib
+seaborn
