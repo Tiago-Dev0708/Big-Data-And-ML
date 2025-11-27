@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:postgresql://postgres:5432/metastore</value>
+    <description>Postgres connection URL for Hive Metastore</description>
+  </property>
+
+  <property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>org.postgresql.Driver</value>
+  </property>
+
+  <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>hive</value>
+  </property>
+
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>hivepassword</value>
+  </property>
+
+  <property>
+    <name>datanucleus.autoCreateSchema</name>
+    <value>false</value>
+  </property>
+
+  <property>
+    <name>datanucleus.fixedDatastore</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>datanucleus.autoStartMechanismMode</name>
+    <value>checked</value>
+  </property>
+
+  <property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://hive-metastore:9083</value>
+    <description>Metastore Thrift Server URI</description>
+  </property>
+
+  <property>
+    <name>hive.exec.scratchdir</name>
+    <value>/tmp/hive</value>
+    <description>Scratch space for Hive jobs</description>
+  </property>
+
+  <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>/user/hive/warehouse</value>
+    <description>Default warehouse location</description>
+  </property>
+
+  <property>
+    <name>hive.metastore.schema.verification</name>
+    <value>true</value>
+    <description>Ensure schema is verified in DB</description>
+  </property>
+
+  <property>
+    <name>hive.support.concurrency</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.txn.manager</name>
+    <value>org.apache.hadoop.hive.ql.lockmgr.DbTxnManager</value>
+  </property>
+
+  <property>
+    <name>hive.compactor.initiator.on</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.compactor.worker.threads</name>
+    <value>2</value>
+  </property>
+
+
+  <property>
+    <name>hive.execution.engine</name>
+    <value>mr</value>
+    <description>mr = MapReduce, tez/spark se você habilitar</description>
+  </property>
+
+  <property>
+    <name>hive.exec.dynamic.partition</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.exec.dynamic.partition.mode</name>
+    <value>nonstrict</value>
+  </property>
+
+  <property>
+    <name>mapreduce.job.queuename</name>
+    <value>default</value>
+  </property>
+
+  <property>
+    <name>hive.vectorized.execution.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.vectorized.execution.reduce.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.cbo.enable</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.compute.query.using.stats</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.stats.fetch.column.stats</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.stats.fetch.partition.stats</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.query.log.location</name>
+    <value>/tmp/hive/logs</value>
+  </property>
+
+  <property>
+    <name>hive.server2.logging.operation.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.server2.logging.operation.log.location</name>
+    <value>/tmp/hive/operation_logs</value>
+  </property>
+
+</configuration>
