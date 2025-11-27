@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>Mapa de Calor - Previsão de Poços</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0">
+    <div id="container" style="height: 100%"></div>
+
+    <script type="text/javascript">
+        const JOB_ID = 'Adicionar o Job ID'; 
+        const API_URL = 'http://localhost:8000';
+        const API_KEY = 'Adicionar a chave de API';
+
+        async function fetchPredictionData() {
+            try {
+                const response = await fetch(`${API_URL}/api/v1/predict/result/${JOB_ID}`, {
+                    headers: {
+                        'x-api-key': API_KEY
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                renderChart(data);
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+                alert('Erro ao carregar dados. Verifique o console e se o Job ID é válido.');
+            }
+        }
+
+        function renderChart(apiData) {
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            
+            
+            var option = {
+                title: {
+                    text: 'Probabilidade de Ocorrência de Petróleo',
+                    subtext: 'Modelo LightGBM + Spark',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                backgroundColor: '#404a59',
+                visualMap: {
+                    min: apiData.min_value,
+                    max: apiData.max_value,
+                    splitNumber: 5,
+                    inRange: {
+                        color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
+                    },
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                geo: {
+                    map: 'world', 
+                    roam: true,
+                    center: [-50, -15], 
+                    zoom: 4,
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            borderColor: '#111'
+                        },
+                        emphasis: {
+                            areaColor: '#2a333d'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Probabilidade',
+                    type: 'heatmap',
+                    coordinateSystem: 'geo',
+                    data: apiData.data,
+                    pointSize: 5,
+                    blurSize: 6
+                }]
+            };
+
+            fetch('https://raw.githubusercontent.com/apache/echarts/master/test/data/map/json/world.json')
+                .then(response => response.json())
+                .then(worldJson => {
+                    echarts.registerMap('world', worldJson);
+                    myChart.setOption(option);
+                });
+        }
+
+
+        fetchPredictionData();
+    </script>
+</body>
+</html>
