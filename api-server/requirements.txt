@@ -12,3 +12,5 @@ scikit-learn
 python-multipart
 matplotlib
 seaborn
+openpyxl
+scipy
